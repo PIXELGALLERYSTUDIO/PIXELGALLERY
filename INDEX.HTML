@@ -1,0 +1,334 @@
+
+<HTML>
+
+
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
+const PHONE = '9316091232';
+const INSTAGRAM = 'https://instagram.com/xr_dhwanit';
+const FACEBOOK = '#';
+const EMAIL = '';
+
+function Nav() {
+  return (
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-indigo-500 to-rose-500 flex items-center justify-center text-white font-extrabold">PG</div>
+          <div>
+            <div className="text-lg font-semibold">PIXEL GALLERY</div>
+            <div className="text-xs text-slate-500">Creative • Colourful • Professional • Techy</div>
+          </div>
+        </div>
+
+        <nav className="hidden md:flex gap-6 items-center text-sm">
+          <Link to="/" className="hover:text-slate-900">Home</Link>
+          <Link to="/services" className="hover:text-slate-900">Services</Link>
+          <Link to="/video-gallery" className="hover:text-slate-900">Video Gallery</Link>
+          <Link to="/photo-gallery" className="hover:text-slate-900">Photo Gallery</Link>
+          <Link to="/edit-gallery" className="hover:text-slate-900">Edit Gallery</Link>
+          <Link to="/edit-list" className="hover:text-slate-900">Edit List</Link>
+          <Link to="/contact" className="hover:text-slate-900">Contact</Link>
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <a href={`tel:${PHONE}`} className="hidden md:inline-block px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm">Book Now</a>
+          <div className="md:hidden">
+            <MobileMenu />
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function MobileMenu() {
+  return (
+    <details className="relative">
+      <summary className="p-2 rounded-md hover:bg-slate-100">☰</summary>
+      <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-md p-3">
+        <nav className="flex flex-col gap-2 text-sm">
+          <Link to="/">Home</Link>
+          <Link to="/services">Services</Link>
+          <Link to="/video-gallery">Video Gallery</Link>
+          <Link to="/photo-gallery">Photo Gallery</Link>
+          <Link to="/edit-gallery">Edit Gallery</Link>
+          <Link to="/edit-list">Edit List</Link>
+          <Link to="/contact">Contact</Link>
+        </nav>
+      </div>
+    </details>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="mt-12 border-t pt-8 pb-12 bg-gradient-to-t from-white to-transparent">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-6">
+        <div>
+          <div className="font-semibold">PIXEL GALLERY</div>
+          <div className="text-sm text-slate-600 mt-2">Book your videography, photography, and pro edits. Reach out for packages and custom requests.</div>
+        </div>
+        <div className="flex flex-col text-sm">
+          <div>Phone: <a href={`tel:${PHONE}`} className="text-indigo-600">{PHONE}</a></div>
+          <div>Email: <a href={`mailto:${EMAIL}`} className="text-indigo-600">{EMAIL}</a></div>
+          <div className="flex gap-3 mt-2">
+            <a href={INSTAGRAM} target="_blank" rel="noreferrer">Instagram</a>
+            <a href={FACEBOOK} target="_blank" rel="noreferrer">Facebook</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function Home() {
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-16">
+      <div className="grid md:grid-cols-2 gap-10 items-center">
+        <motion.div initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+          <h1 className="text-4xl md:text-5xl font-extrabold">PIXEL GALLERY — Book professional videography & photography</h1>
+          <p className="mt-4 text-slate-700">Colourful, creative, and technical media services — from wedding films to cinematic edits and social-ready photos. Browse our galleries or book a custom package.</p>
+
+          <div className="mt-6 flex gap-3">
+            <Link to="/contact" className="px-5 py-3 rounded-lg bg-rose-500 text-white font-semibold">Book Now</Link>
+            <Link to="/edit-list" className="px-5 py-3 rounded-lg border">See Edit Prices</Link>
+          </div>
+
+          <div className="mt-6 text-sm text-slate-600">Phone: <a href={`tel:${PHONE}`} className="text-indigo-600">{PHONE}</a></div>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
+          <div className="rounded-xl overflow-hidden shadow-lg grid grid-cols-2 gap-2 p-2 bg-white">
+            {/* sample thumbnails - replace src with your images */}
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="h-40 bg-slate-100 flex items-center justify-center text-slate-400">Image {i + 1}</div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      <section className="mt-12">
+        <h3 className="text-2xl font-semibold">Featured Services</h3>
+        <div className="grid md:grid-cols-3 gap-6 mt-6">
+          <ServiceCard title="Wedding Videography" desc="Cinematic wedding films — full day coverage, highlight reels, and short social edits." />
+          <ServiceCard title="Events & Corporate" desc="Conferences, launches, and corporate storytelling — polished deliverables on deadline." />
+          <ServiceCard title="Photoshoots & Editing" desc="Portraits, product, and event photography — with professional color grading and retouching." />
+        </div>
+      </section>
+    </section>
+  );
+}
+
+function ServiceCard({ title, desc }) {
+  return (
+    <motion.div whileHover={{ y: -4 }} className="p-6 bg-white rounded-2xl shadow-sm border">
+      <div className="font-semibold">{title}</div>
+      <p className="text-sm mt-2 text-slate-600">{desc}</p>
+      <div className="mt-4">
+        <Link to="/contact" className="text-indigo-600 font-medium">Book this service →</Link>
+      </div>
+    </motion.div>
+  );
+}
+
+function Services() {
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-16">
+      <h2 className="text-3xl font-extrabold">Services</h2>
+      <p className="mt-3 text-slate-600">Comprehensive packages for videography, photography, and pro editing. Contact us for tailored quotes.</p>
+
+      <div className="mt-8 grid md:grid-cols-2 gap-6">
+        <DetailCard title="Videography Packages" items={[
+          'Wedding Full Day — Ceremony + Reception (custom deliverables)',
+          'Highlight Reel (3-6 min) + Social Cuts',
+          'Cinematic Short (1–3 min)'
+        ]} />
+
+        <DetailCard title="Photography" items={[
+          'Event Coverage (per hour or day)',
+          'Portrait & Product Shoots',
+          'Editing & Retouching Packages'
+        ]} />
+      </div>
+    </section>
+  );
+}
+
+function DetailCard({ title, items }) {
+  return (
+    <div className="p-6 bg-white rounded-2xl border shadow-sm">
+      <div className="font-semibold">{title}</div>
+      <ul className="mt-3 text-slate-600 list-disc list-inside space-y-2">
+        {items.map((it, idx) => <li key={idx}>{it}</li>)}
+      </ul>
+      <div className="mt-4">
+        <Link to="/contact" className="text-indigo-600 font-medium">Request a quote</Link>
+      </div>
+    </div>
+  );
+}
+
+const sampleVideos = Array.from({ length: 6 }).map((_, i) => ({ id: i + 1, title: `Video ${i + 1}`, thumb: null }));
+const samplePhotos = Array.from({ length: 8 }).map((_, i) => ({ id: i + 1, title: `Photo ${i + 1}` }));
+const sampleEdits = Array.from({ length: 6 }).map((_, i) => ({ id: i + 1, title: `Edit ${i + 1}` }));
+
+function GalleryGrid({ items, kind = 'photo' }) {
+  return (
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+      {items.map(it => (
+        <div key={it.id} className="bg-white rounded-xl overflow-hidden border shadow-sm">
+          <div className="h-44 bg-slate-100 flex items-center justify-center text-slate-400">{kind} {it.id}</div>
+          <div className="p-3">
+            <div className="font-medium">{it.title}</div>
+            <div className="text-xs text-slate-500 mt-1">Replace with real thumbnail or video embed.</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function VideoGallery() {
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-16">
+      <h2 className="text-3xl font-extrabold">Video Gallery</h2>
+      <p className="mt-2 text-slate-600">Selected works — click to view full edits.</p>
+      <GalleryGrid items={sampleVideos} kind="Video" />
+    </section>
+  );
+}
+
+function PhotoGallery() {
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-16">
+      <h2 className="text-3xl font-extrabold">Photo Gallery</h2>
+      <p className="mt-2 text-slate-600">A mix of portraits, events, and product shots.</p>
+      <GalleryGrid items={samplePhotos} kind="Photo" />
+    </section>
+  );
+}
+
+function EditGallery() {
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-16">
+      <h2 className="text-3xl font-extrabold">Edit Gallery</h2>
+      <p className="mt-2 text-slate-600">Before & afters and style samples (color grade, VFX, montage).</p>
+      <GalleryGrid items={sampleEdits} kind="Edit" />
+    </section>
+  );
+}
+
+function EditList() {
+  const packages = [
+    { id: 1, name: 'Social Cut', minutes: 0.5, price: 500 },
+    { id: 2, name: 'Highlight Reel', minutes: 3, price: 2000 },
+    { id: 3, name: 'Cinematic Edit', minutes: 5, price: 3500 },
+    { id: 4, name: 'Full Edit (per minute)', minutes: 1, price: 1200 }
+  ];
+
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-16">
+      <h2 className="text-3xl font-extrabold">Edit List & Pricing</h2>
+      <p className="mt-2 text-slate-600">Transparent pricing by edit type. Prices are indicative — contact for a custom quote.</p>
+
+      <div className="mt-6 grid md:grid-cols-2 gap-4">
+        {packages.map(p => (
+          <div key={p.id} className="p-4 bg-white rounded-xl border shadow-sm flex justify-between items-center">
+            <div>
+              <div className="font-semibold">{p.name}</div>
+              <div className="text-sm text-slate-500">Approx length: {p.minutes} {p.minutes > 1 ? 'minutes' : 'minute(s)'}</div>
+            </div>
+            <div className="text-right">
+              <div className="font-bold">₹{p.price}</div>
+              <div className="text-sm text-slate-500">per package</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-6 text-sm text-slate-600">Note: Custom edits and rush delivery may incur additional charges. For bulk or event editing, request a package quote.</div>
+    </section>
+  );
+}
+
+function About() {
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-16">
+      <h2 className="text-3xl font-extrabold">About PIXEL GALLERY</h2>
+      <p className="mt-3 text-slate-600">We are a creative media studio focused on delivering colourful, professional, and technically strong photo & video work. We combine cinematic storytelling with precise editing to help your moments shine.</p>
+    </section>
+  );
+}
+
+function Contact() {
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-16">
+      <div className="grid md:grid-cols-2 gap-10">
+        <div>
+          <h2 className="text-3xl font-extrabold">Book Now</h2>
+          <p className="mt-2 text-slate-600">Call or message to confirm availability. Provide event date, location, and brief requirements.</p>
+
+          <div className="mt-6 space-y-3">
+            <div>Phone: <a href={`tel:${PHONE}`} className="text-indigo-600">{PHONE}</a></div>
+            <div>Email: <a href={`mailto:${EMAIL}`} className="text-indigo-600">{EMAIL}</a></div>
+            <div className="flex gap-3 mt-2">
+              <a href={INSTAGRAM} target="_blank" rel="noreferrer">Instagram</a>
+              <a href={FACEBOOK} target="_blank" rel="noreferrer">Facebook</a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <form className="bg-white p-6 rounded-2xl border shadow-sm">
+            <label className="block text-sm font-medium">Name</label>
+            <input className="w-full mt-2 p-3 border rounded-md" placeholder="Your name" />
+
+            <label className="block text-sm font-medium mt-4">Phone / Email</label>
+            <input className="w-full mt-2 p-3 border rounded-md" placeholder="Phone or email" />
+
+            <label className="block text-sm font-medium mt-4">Service / Message</label>
+            <textarea className="w-full mt-2 p-3 border rounded-md" rows="4" placeholder="Event date, location, what you need"></textarea>
+
+            <div className="mt-4 flex items-center justify-between">
+              <div className="text-sm text-slate-500">Or call: <a href={`tel:${PHONE}`} className="text-indigo-600">{PHONE}</a></div>
+              <button type="button" className="px-4 py-2 bg-rose-500 text-white rounded-md">Send Request</button>
+            </div>
+
+            <div className="mt-3 text-xs text-slate-400">This form is front-end only. Hook it to your email provider or backend to receive messages.</div>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <div className="min-h-screen bg-slate-50 text-slate-900 antialiased">
+        <Nav />
+
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/video-gallery" element={<VideoGallery />} />
+            <Route path="/photo-gallery" element={<PhotoGallery />} />
+            <Route path="/edit-gallery" element={<EditGallery />} />
+            <Route path="/edit-list" element={<EditList />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
+    </Router>
+  );
+}
+
+/*
+<HTML>
